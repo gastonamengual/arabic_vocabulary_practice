@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "*"
+gtts = "*"
+
+[requires]
+python_version = "3.12"
+
+[scripts]
+hook = "pre-commit install"
+format = "pre-commit run --all-files"
+build = "bash ../.github/workflows/build_book.sh"
+
+[dev-packages]
+ipykernel = "*"
