@@ -18,10 +18,6 @@ def validate_words(word1: str, word2: str) -> bool:
 
 
 def initialize() -> None:
-    st.markdown(
-        "<div style='text-align: center; font-weight: bold; font-size: 3em;'>☪️ تَدْرِيبُ المُفْرَدَاتِ العَرَبِيَّةِ 🕌</div>",
-        unsafe_allow_html=True,
-    )
 
     st.markdown(
         """
