@@ -12,59 +12,83 @@ def rerun() -> None:
     st.session_state.current_word = ""
     st.session_state.singular_stage = True
     st.session_state.plural_stage = False
-    if "singular_input" in st.session_state:
-        del st.session_state["singular_input"]
-    if "plural_input" in st.session_state:
-        del st.session_state["plural_input"]
+    st.session_state.pop("singular_input", None)
+    st.session_state.pop("plural_input", None)
     st.rerun()
 
 
-st.markdown(
-    "<div style='text-align: center; font-weight: bold; font-size: 3em;'>☪️ تَدْرِيبُ المُفْرَدَاتِ العَرَبِيَّةِ 🕌</div>",
-    unsafe_allow_html=True,
-)
-selected_areas = st.multiselect(
-    "Select vocabulary areas:", options=[voc.value for voc in VocabularyAreas]
-)
-selected_enums = [VocabularyAreas(label) for label in selected_areas]
+def select_vocabulary_areas() -> list[VocabularyAreas]:
+    selected_areas = st.multiselect(
+        "",
+        options=[voc.value for voc in VocabularyAreas],
+        placeholder="مَجَالاَتُ المُفْرَدَاتِ",
+        label_visibility="collapsed",
+    )
 
-if not selected_enums:
-    st.stop()
+    if "areas_selected" not in st.session_state:
+        st.session_state.areas_selected = False
+    if "selected_enums" not in st.session_state:
+        st.session_state.selected_enums = []
 
-if "words" not in st.session_state:
-    words: dict[str, Any] = {}
-    for area in selected_enums:
-        path = WORD_FACTORY[area]
+    if st.button("Confirm selection"):
+        st.session_state.areas_selected = True
+        st.session_state.selected_enums = [
+            VocabularyAreas(label) for label in selected_areas
+        ]
 
-        with open(path, "r", encoding="utf-8") as f:
-            data: dict[str, Any] = json.load(f)
-            words.update(data)
+    if not st.session_state.areas_selected:
+        st.stop()
 
-    st.session_state.words = words
+    return st.session_state.selected_enums
 
-initialize()
 
-if "current_word" not in st.session_state or st.session_state.current_word == "":
-    st.session_state.current_word = random.choice(list(st.session_state.words.keys()))
-    st.session_state.singular = st.session_state.words[st.session_state.current_word][0]
-    st.session_state.plural = st.session_state.words[st.session_state.current_word][1]
-    st.session_state.singular_stage = True
-    st.session_state.plural_stage = False
+def load_words(selected_enums: list[VocabularyAreas]):
+    if "words" not in st.session_state:
+        words: dict[str, Any] = {}
+        for area in selected_enums:
+            path = WORD_FACTORY[area]
 
-st.markdown(
-    f"<div style='text-align: center; font-weight: bold; font-size: 2em;'> {st.session_state.current_word.upper()} </div>",
-    unsafe_allow_html=True,
-)
-if st.button("❌"):
-    del st.session_state.words[st.session_state.current_word]
-    rerun()
+            with open(path, "r", encoding="utf-8") as f:
+                data: dict[str, Any] = json.load(f)
+                words.update(data)
 
-if st.session_state.singular_stage:
+        st.session_state.words = words
+
+
+def set_session_state():
+    if "current_word" not in st.session_state or st.session_state.current_word == "":
+        if not st.session_state.words:
+            st.warning("No words left to practice")
+            st.stop()
+        st.session_state.current_word = random.choice(
+            list(st.session_state.words.keys())
+        )
+        st.session_state.singular = st.session_state.words[
+            st.session_state.current_word
+        ][0]
+        st.session_state.plural = st.session_state.words[st.session_state.current_word][
+            1
+        ]
+        st.session_state.singular_stage = True
+        st.session_state.plural_stage = False
+
+    st.markdown(
+        f"<div style='text-align: center; font-weight: bold; font-size: 2em;'> {st.session_state.current_word.upper()} </div>",
+        unsafe_allow_html=True,
+    )
+
+    if st.button("❌"):
+        del st.session_state.words[st.session_state.current_word]
+        rerun()
+
+
+def singular_stage():
     st.text_input(
         label="Singular",
         placeholder="مُفْرَدٌ",
         key="singular_input",
         label_visibility="collapsed",
+        value="",
     )
 
     if st.session_state.singular_input:
@@ -76,12 +100,10 @@ if st.session_state.singular_stage:
             )
             st.session_state.plural_stage = True
         else:
-            st.warning(f"Hint: {st.session_state.singular}")
+            st.warning(f"{st.session_state.singular}")
 
-if st.session_state.plural is None:
-    rerun()
 
-if st.session_state.plural_stage:
+def plural_stage():
     st.text_input(
         label="Plural",
         placeholder="جَمْعٌ",
@@ -98,4 +120,24 @@ if st.session_state.plural_stage:
             if st.button("Siguiente palabra"):
                 rerun()
         else:
-            st.warning(f"Hint: {st.session_state.plural}")
+            st.warning(f"{st.session_state.plural}")
+
+
+def main():
+    initialize()
+    selected_enums = select_vocabulary_areas()
+    load_words(selected_enums)
+    set_session_state()
+
+    if st.session_state.singular_stage:
+        singular_stage()
+
+    if st.session_state.plural is None:
+        rerun()
+
+    if st.session_state.plural_stage:
+        plural_stage()
+
+
+if __name__ == "__main__":
+    main()
