@@ -7,6 +7,8 @@ class VocabularyAreas(StrEnum):
     NATURE = "🏔️ طَبِيعَةٌ"
     FOOD = "🥙 طَعَامٌ"
     COLORS = "🟣 ألْوَانٌ"
+    JOBS = "👨🏻‍💻 مِهَنٌ"
+    BODY = "🧠 جُزْءٌ مِنَ ٱلْجَسَدِ"
 
 
 WORD_FACTORY = {
@@ -15,4 +17,6 @@ WORD_FACTORY = {
     VocabularyAreas.NATURE: "app/data/nature.json",
     VocabularyAreas.FOOD: "app/data/food.json",
     VocabularyAreas.COLORS: "app/data/colors.json",
+    VocabularyAreas.JOBS: "app/data/jobs.json",
+    VocabularyAreas.BODY: "app/data/body.json",
 }
