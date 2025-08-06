@@ -90,6 +90,8 @@ def singular_stage():
         label_visibility="collapsed",
         value="",
     )
+    if st.button("Hint", key="hint_singular"):
+        st.error(st.session_state.singular)
 
     if st.session_state.singular_input:
         if validate_words(st.session_state.singular_input, st.session_state.singular):
@@ -99,8 +101,6 @@ def singular_stage():
                 unsafe_allow_html=True,
             )
             st.session_state.plural_stage = True
-        else:
-            st.warning(f"{st.session_state.singular}")
 
 
 def plural_stage():
@@ -110,6 +110,9 @@ def plural_stage():
         key="plural_input",
         label_visibility="collapsed",
     )
+    if st.button("Hint", key="hint_plural"):
+        st.error(st.session_state.plural)
+
     if st.session_state.plural_input:
         if validate_words(st.session_state.plural_input, st.session_state.plural):
             st.markdown(
@@ -119,8 +122,6 @@ def plural_stage():
             play_text(st.session_state.plural)
             if st.button("Siguiente palabra"):
                 rerun()
-        else:
-            st.warning(f"{st.session_state.plural}")
 
 
 def main():
