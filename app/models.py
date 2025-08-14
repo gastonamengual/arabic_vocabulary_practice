@@ -9,6 +9,7 @@ class VocabularyAreas(StrEnum):
     COLORS = "🟣 ألْوَانٌ"
     JOBS = "👨🏻‍💻 مِهَنٌ"
     BODY = "🧠 جُزْءٌ مِنَ ٱلْجَسَدِ"
+    FAMILY = "👴🏻 أُسْرَةٌ"
 
 
 WORD_FACTORY = {
