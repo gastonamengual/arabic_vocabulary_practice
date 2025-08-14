@@ -72,28 +72,36 @@
     "خَالَتَا"
   ],
   "primo (hijo del tío paterno)": [
-    "اِبْنُ عَمٍّ"
+    "اِبْنُ عَمٍّ",
+    null,
   ],
   "prima (hija del tío paterno)": [
-    "بِنْتُ عَمٍّ"
+    "بِنْتُ عَمٍّ",
+    null,
   ],
   "primo (hijo de la tía paterna)": [
-    "اِبْنُ عَمَّةٍ"
+    "اِبْنُ عَمَّةٍ",
+    null,
   ],
   "prima (hija de la tía paterna)": [
-    "بِنْتُ عَمَّةٍ"
+    "بِنْتُ عَمَّةٍ",
+    null,
   ],
   "primo (hijo del tío materno)": [
-    "اِبْنُ خَالٍ"
+    "اِبْنُ خَالٍ",
+    null,
   ],
   "prima (hija del tío materno)": [
-    "بِنْتُ خَالٍ"
+    "بِنْتُ خَالٍ",
+    null,
   ],
   "primo (hijo de la tía materna)": [
-    "اِبْنُ خَالَةٍ"
+    "اِبْنُ خَالَةٍ",
+    null,
   ],
   "prima (hija de la tía materna)": [
-    "بِنْتُ خَالَةٍ"
+    "بِنْتُ خَالَةٍ",
+    null,
   ],
   "bebé (0-2)": [
     "طِفْلٌ",
