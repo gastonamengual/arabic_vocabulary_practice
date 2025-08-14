@@ -20,4 +20,5 @@ WORD_FACTORY = {
     VocabularyAreas.COLORS: "app/data/colors.json",
     VocabularyAreas.JOBS: "app/data/jobs.json",
     VocabularyAreas.BODY: "app/data/body.json",
+    VocabularyAreas.FAMILY: "app/data/family.json",
 }
