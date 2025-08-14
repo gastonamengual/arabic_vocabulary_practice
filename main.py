@@ -30,7 +30,7 @@ def select_vocabulary_areas() -> list[VocabularyAreas]:
     if "selected_enums" not in st.session_state:
         st.session_state.selected_enums = []
 
-    if st.button("Confirm selection"):
+    if st.button("!أُمَارِسْ"):
         st.session_state.areas_selected = True
         st.session_state.selected_enums = [
             VocabularyAreas(label) for label in selected_areas
@@ -53,6 +53,13 @@ def load_words(selected_enums: list[VocabularyAreas]):
                 words.update(data)
 
         st.session_state.words = words
+
+    print(sorted(st.session_state.words.items()))
+    with st.popover("اِفْتَحْ قَائِمَةَ الْكَلِمَاتِ"):
+        for word, translation in sorted(st.session_state.words.items()):
+            st.write(
+                f"{word.capitalize()}:    {translation[0]}    -    {translation[1]}"
+            )
 
 
 def set_session_state():
@@ -77,7 +84,7 @@ def set_session_state():
         unsafe_allow_html=True,
     )
 
-    if st.button("❌"):
+    if st.button("❌ لا تُظْهِرِ الْكَلِمَةَ مَرَّةً أُخْرَى"):
         del st.session_state.words[st.session_state.current_word]
         rerun()
 
@@ -90,7 +97,7 @@ def singular_stage():
         label_visibility="collapsed",
         value="",
     )
-    if st.button("Hint", key="hint_singular"):
+    if st.button("تَلْغِيزٌ", key="hint_singular"):
         st.error(st.session_state.singular)
 
     if st.session_state.singular_input:
@@ -129,6 +136,8 @@ def main():
     selected_enums = select_vocabulary_areas()
     load_words(selected_enums)
     set_session_state()
+
+    # Example words dictionary
 
     if st.session_state.singular_stage:
         singular_stage()

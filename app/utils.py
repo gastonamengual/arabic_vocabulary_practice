@@ -65,6 +65,6 @@ def initialize():
     st.markdown(css, unsafe_allow_html=True)
 
     st.markdown(
-        "<div style='text-align: center; font-weight: bold; font-size: 3em;'>☪️ مُـمَارَسَةٌ المُفْرَدَاتِ العَرَبِيَّةِ 🕌</div>",
+        "<div style='text-align: center; font-weight: bold; font-size: 3em;'>☪️ مُـمَارَسَةٌ العَرَبِيَّةِ 🕌</div>",
         unsafe_allow_html=True,
     )
