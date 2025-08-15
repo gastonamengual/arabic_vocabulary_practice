@@ -54,8 +54,7 @@ def load_words(selected_enums: list[VocabularyAreas]):
 
         st.session_state.words = words
 
-    print(sorted(st.session_state.words.items()))
-    with st.popover("اِفْتَحْ قَائِمَةَ الْكَلِمَاتِ"):
+    with st.popover(f"({len(st.session_state.words)}) اِفْتَحْ قَائِمَةَ الْكَلِمَاتِ"):
         for word, translation in sorted(st.session_state.words.items()):
             st.write(
                 f"{word.capitalize()}:    {translation[0]}    -    {translation[1]}"
