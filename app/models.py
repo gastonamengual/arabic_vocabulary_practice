@@ -14,6 +14,7 @@ class VocabularyAreas(StrEnum):
     HOUSE = "🏠 مَنزِلٌ"
     JOBS = "👨🏻‍💻 مِهَنٌ"
     NATURE = "🏔 طَبِيعَةٌ"
+    FEELINGS = "🤪 مَشَاعِرٌ"
 
 
 WORD_FACTORY = {
@@ -29,4 +30,5 @@ WORD_FACTORY = {
     VocabularyAreas.HOUSE: "app/data/house.json",
     VocabularyAreas.JOBS: "app/data/jobs.json",
     VocabularyAreas.NATURE: "app/data/nature.json",
+    VocabularyAreas.FEELINGS: "app/data/feelings.json",
 }
